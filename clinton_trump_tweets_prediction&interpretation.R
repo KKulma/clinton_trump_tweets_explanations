@@ -51,6 +51,8 @@ dtm_test2 = get_matrix2(test_tweets$text)
 dim(dtm_train2)
 dim(dtm_test2)
 
+tm::inspect(dtm_train2)
+
 # Create boosting model for binary classification (-> logistic loss)
 # Other parameters are quite standard
 param <- list(max_depth = 7, 
@@ -130,6 +132,9 @@ clean_xgb_model2 <- xgb.train(
 # We use a (standard) threshold of 0.5
 clean_predictions <- predict(clean_xgb_model2, clean_dtm_test2) > 0.5
 clean_test_labels <- clean_test_tweets$author == "realDonaldTrump"
+
+str(clean_predictions)
+str(clean_test_labels)
 
 # Accuracy
 print(mean(clean_predictions == clean_test_labels))
